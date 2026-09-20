@@ -1,0 +1,903 @@
+<!DOCTYPE html>
+<html lang="es-AR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mapa de aplicabilidad normativa — Argentina</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --papel:#EDEFF0; --papel-alto:#F7F8F8; --tinta:#12232E; --tinta-suave:#5A6670;
+  --linea:#C9CFD2; --linea-fina:#DDE1E3; --accion:#0E5E56;
+  --v-legal:#B3261E; --v-contractual:#B3641E; --v-referencia:#7A6A12;
+  --v-practica:#5A6670; --v-contexto:#8A9096; --analisis:#6B3FA0;
+  --serif:'Spectral',Georgia,serif; --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);
+  font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+
+header{border-bottom:2px solid var(--tinta);padding-bottom:18px;margin-bottom:20px}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,44px);line-height:1.08;
+  margin:0 0 8px;letter-spacing:-.01em;max-width:15ch}
+.bajada{font-family:var(--serif);font-size:17px;color:var(--tinta-suave);margin:0;max-width:62ch;line-height:1.45}
+.firma{margin-top:14px;font-size:13px;color:var(--tinta-suave)}
+.firma b{font-weight:500;color:var(--tinta)}
+
+.aviso{border:1px solid var(--linea);border-left:4px solid var(--v-legal);background:var(--papel-alto);
+  padding:12px 14px;margin:0 0 22px;font-size:13.5px;line-height:1.45}
+.aviso p{margin:0 0 6px}.aviso p:last-child{margin:0}
+.contador{font-weight:600}
+
+.scoping-btn{font-family:var(--sans);font-size:15px;font-weight:500;background:var(--accion);
+  color:#fff;border:0;padding:11px 18px;cursor:pointer;width:100%;text-align:left}
+.scoping-btn:hover{background:#0A4A43}
+.scoping-btn:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+.panel{border:1px solid var(--linea);border-top:0;background:var(--papel-alto);padding:0 16px;display:none}
+.panel.abierto{display:block;padding:18px 16px}
+.campo{margin-bottom:18px}
+.campo>label,.grupo-tit{display:block;font-weight:600;font-size:14px;margin-bottom:7px}
+.grupo-tit{margin-top:16px}
+select{font-family:var(--sans);font-size:15px;padding:9px 10px;width:100%;max-width:380px;
+  border:1px solid var(--linea);background:#fff;color:var(--tinta)}
+.preguntas{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea-fina)}
+.preguntas li{border-bottom:1px solid var(--linea-fina)}
+.preguntas label{display:flex;gap:11px;align-items:flex-start;padding:11px 2px;cursor:pointer;
+  font-size:14.5px;line-height:1.4}
+.preguntas input{margin:2px 0 0;width:17px;height:17px;accent-color:var(--accion);flex:none}
+.preguntas .nota{display:block;font-size:12.5px;color:var(--tinta-suave);margin-top:2px}
+.panel-pie{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn-sec{font-family:var(--sans);font-size:14px;background:transparent;color:var(--accion);
+  border:1px solid var(--accion);padding:8px 14px;cursor:pointer}
+.btn-sec:hover{background:var(--accion);color:#fff}
+.btn-sec:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+
+.resumen{display:none;border:1px solid var(--linea);border-top:0;background:#fff;padding:16px}
+.resumen.visible{display:block}
+.resumen h2{font-family:var(--serif);font-size:20px;margin:0 0 12px;font-weight:600}
+.conteos{display:flex;flex-wrap:wrap;border:1px solid var(--linea-fina)}
+.conteo{flex:1 1 120px;padding:12px 14px;border-right:1px solid var(--linea-fina)}
+.conteo:last-child{border-right:0}
+.conteo .n{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;display:block}
+.conteo .et{font-size:12.5px;color:var(--tinta-suave);margin-top:5px;display:block;line-height:1.3}
+.nota-ind{margin:12px 0 0;font-size:13.5px;color:var(--tinta-suave);line-height:1.45}
+
+.capa{margin-top:42px}
+.capa-cab{border-bottom:1px solid var(--tinta);padding-bottom:7px;margin-bottom:4px}
+.capa-cab h2{font-family:var(--serif);font-size:23px;font-weight:600;margin:0}
+.capa-cab p{margin:5px 0 0;font-size:14px;color:var(--tinta-suave);max-width:70ch}
+.sub-tit{font-family:var(--serif);font-size:16px;font-weight:600;margin:20px 0 2px;color:var(--tinta-suave)}
+
+.sector{border-bottom:1px solid var(--linea-fina)}
+.sector.oculto{display:none}
+.sector-nom{font-family:var(--serif);font-size:17px;font-weight:600;padding:15px 0 7px;margin:0}
+.sector.destacado .sector-nom::after{content:'tu industria';font-family:var(--sans);font-size:11px;
+  font-weight:500;color:#fff;background:var(--accion);padding:2px 7px;margin-left:9px;vertical-align:2px}
+.sector-vacio{font-size:13.5px;color:var(--tinta-suave);font-style:italic;padding:0 0 14px}
+.recurso-sector{border:1px solid var(--linea-fina);background:var(--papel-alto);
+  padding:12px 14px;margin:2px 0 18px;font-size:13.5px;line-height:1.45}
+.recurso-sector h4{font-family:var(--sans);font-size:14px;font-weight:600;margin:0 0 5px}
+.recurso-sector p{margin:0 0 9px;color:var(--tinta-suave);max-width:72ch}
+.recurso-sector a{color:var(--accion);font-weight:500;text-decoration:none}
+.recurso-sector a:hover{text-decoration:underline}
+.recurso-sector a:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
+
+.fichas{list-style:none;margin:0;padding:0 0 10px}
+.ficha{border-left:3px solid var(--v-practica);padding:0 0 0 12px;margin-bottom:14px}
+.ficha.legal{border-color:var(--v-legal)} .ficha.contractual{border-color:var(--v-contractual)}
+.ficha.referencia{border-color:var(--v-referencia)} .ficha.practica{border-color:var(--v-practica)}
+.ficha.contexto{border-color:var(--v-contexto)}
+.ficha.oculta{display:none}
+.ficha.analisis{border-left-style:dashed;border-color:var(--analisis)}
+.ficha-cab{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
+.ficha-nom{font-weight:600;font-size:15px}
+.vinc{font-size:11.5px;font-weight:500;padding:1px 7px;border:1px solid currentColor}
+.legal .vinc{color:var(--v-legal)} .contractual .vinc{color:var(--v-contractual)}
+.referencia .vinc{color:var(--v-referencia)} .practica .vinc{color:var(--v-practica)}
+.contexto .vinc{color:var(--v-contexto)}
+.flag{font-size:11.5px;font-weight:500}
+.flag.sinvalidar{color:var(--tinta-suave);opacity:.8}
+.flag.modificada{color:var(--v-contractual)}
+.flag.requiere{color:var(--analisis)}
+.disparador{font-size:13.5px;color:var(--tinta-suave);margin:4px 0 0;line-height:1.4}
+.exige{font-family:var(--serif);font-size:15px;margin:5px 0 0;line-height:1.45;max-width:74ch}
+.meta{font-size:12.5px;color:var(--tinta-suave);margin:6px 0 0;line-height:1.5}
+.meta a{color:var(--accion)}
+.meta .sep{color:var(--linea)}
+
+.leyenda{margin-top:46px;border-top:2px solid var(--tinta);padding-top:16px}
+.leyenda h2{font-family:var(--serif);font-size:19px;margin:0 0 10px;font-weight:600}
+.leyenda dl{margin:0 0 20px;display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:14px;align-items:baseline}
+.leyenda dt{font-weight:600;border-left:3px solid;padding-left:9px;white-space:nowrap}
+.leyenda dd{margin:0;color:var(--tinta-suave)}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-size:13px;
+  color:var(--tinta-suave);line-height:1.5}
+footer p{max-width:74ch}
+
+@media (max-width:600px){
+  .wrap{padding:20px 15px 60px}
+  .conteo{flex:1 1 100%;border-right:0;border-bottom:1px solid var(--linea-fina)}
+  .conteo:last-child{border-bottom:0}
+  .leyenda dl{grid-template-columns:1fr;gap:2px}
+  .leyenda dd{margin-bottom:9px;padding-left:12px}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>¿Qué normativa de seguridad le aplica a tu empresa?</h1>
+  <p class="bajada">Mapa de aplicabilidad para empresas que operan en Argentina. Cruza industria, obligaciones legales, exigencias contractuales y estándares de referencia.</p>
+  <p class="firma">Elaborado por <b>Bernardita Götte</b> · Versión 1.0 · Revisado 20/09/2026</p>
+</header>
+
+<div class="aviso">
+  <p><span class="contador" id="contador"></span></p>
+  <p>Cobertura inicial del mapa: marco argentino general, sectores seleccionados, marcos transversales y obligaciones por jurisdicción o actividad. Orientativo; no sustituye un análisis de aplicabilidad regulatoria.</p>
+  <p>Fuente validada y aplicabilidad son estados independientes: “requiere análisis” significa que la fuente está clara, pero el cuestionario no puede decidir por sí solo si aplica.</p>
+</div>
+
+<button class="scoping-btn" id="btnScoping" aria-expanded="false" aria-controls="panel">
+  Ver qué le aplica a mi empresa
+</button>
+
+<div class="panel" id="panel">
+  <div class="campo">
+    <label for="industria">Industria principal</label>
+    <select id="industria"><option value="">Elegir industria…</option></select>
+  </div>
+  <div id="grupos"></div>
+  <div class="panel-pie">
+    <button class="btn-sec" id="btnAplicar">Filtrar el mapa</button>
+    <button class="btn-sec" id="btnLimpiar">Ver todo de nuevo</button>
+    <button class="btn-sec" id="btnCopiar">Copiar resultado</button>
+  </div>
+</div>
+
+<div class="resumen" id="resumen" aria-live="polite">
+  <h2>Lo que puede aplicar a tu empresa</h2>
+  <div class="conteos" id="conteos"></div>
+  <p class="nota-ind" id="notaInd"></p>
+</div>
+
+<main id="mapa"></main>
+
+<section class="leyenda">
+  <h2>Fuerza de la obligación</h2>
+  <dl>
+    <dt style="border-color:var(--v-legal)">Legal</dt>
+    <dd>Obligación derivada de una norma o autoridad aplicable.</dd>
+    <dt style="border-color:var(--v-contractual)">Contractual</dt>
+    <dd>Requisito exigible por contrato o por la relación con un tercero.</dd>
+    <dt style="border-color:var(--v-referencia)">Referencia</dt>
+    <dd>Estándar voluntario utilizable como requisito o referencia externa.</dd>
+    <dt style="border-color:var(--v-practica)">Buena práctica</dt>
+    <dd>Guía voluntaria para diseñar o mejorar controles.</dd>
+    <dt style="border-color:var(--v-contexto)">Marco legal</dt>
+    <dd>No te impone controles. Define el terreno penal o de derechos en el que operás.</dd>
+  </dl>
+  <h2>Evidencia esperada</h2>
+  <dl>
+    <dt style="border-color:var(--linea)">Certificación</dt>
+    <dd>Organismo acreditado emite un certificado de sistema de gestión.</dd>
+    <dt style="border-color:var(--linea)">Atestación</dt>
+    <dd>Un tercero se pronuncia sobre los controles. No es un certificado.</dd>
+    <dt style="border-color:var(--linea)">Evaluación</dt>
+    <dd>Assessment con resultado o etiqueta, sin certificado acreditado.</dd>
+    <dt style="border-color:var(--linea)">Homologación</dt>
+    <dd>Autorización de una autoridad para poner algo en el mercado.</dd>
+    <dt style="border-color:var(--linea)">Autodeclaración</dt>
+    <dd>La propia organización declara su cumplimiento.</dd>
+    <dt style="border-color:var(--linea)">Informe de auditoría</dt>
+    <dd>Informe emitido a partir de una revisión o auditoría.</dd>
+    <dt style="border-color:var(--linea)">Sin entregable propio</dt>
+    <dd>La norma o marco no genera por sí mismo una evidencia formal específica.</dd>
+  </dl>
+</section>
+
+<footer>
+  <p><b>La industria no explica por sí sola qué requisitos de seguridad alcanzan a una empresa.</b> Una parte sustancial de este mapa surge de legislación general, marcos transversales y condiciones relacionadas con los datos, la actividad, la geografía y los contratos. La regulación sectorial es una capa más, no necesariamente el punto de partida.</p>
+  <p>Criterio de inclusión: entra toda norma, estándar o marco de seguridad de la información que pueda alcanzar a una empresa radicada en Argentina, cualquiera sea su origen. Incluye regímenes extraterritoriales que se activan por la actividad o por el mercado al que se dirige, y deja afuera los que requieren estar establecido en otra jurisdicción.</p>
+  <p>Las fichas marcadas como “requiere análisis” dependen de umbrales o condiciones que un cuestionario no puede resolver. Se muestran siempre que el contexto las haga posibles, para que no pasen inadvertidas.</p>
+  <p>La normativa del BCRA se releva en profundidad en una matriz específica mantenida por separado. <a href="https://bgotte.github.io/mapa-normativo-bcra/" target="_blank" rel="noopener" style="color:var(--accion)">Consultar Matriz Normativa BCRA →</a></p>
+</footer>
+
+</div>
+
+<script>
+/* ==========================================================================
+   MODELO DE DATOS v1.0
+
+   Cada ficha:
+     id           identificador estable (no cambiarlo nunca: es el ancla)
+     nom          nombre
+     emisor       quién la emite
+     tipo         ley | resolucion | disposicion | estandar | marco | esquema
+     vincula      legal | contractual | referencia | practica | contexto
+     capa         0 base · 1 sectorial · 2 transversal · 3 por jurisdicción/actividad
+     ind          array de industrias (solo capa 1)
+     aplica       regla: 'flag' | {allOf:[...]} | {anyOf:[...]} | {not:...} | null (siempre)
+     analisis     true = la aplicabilidad depende de condiciones que el
+                  cuestionario no puede resolver por sí solo
+     exige        qué obliga, en una línea
+     evidencia    certificacion | atestacion | evaluacion | homologacion |
+                  autodeclaracion | informe | ninguna
+     evidNota     detalle del entregable real
+     ref          artículo / sección concreta
+     url          enlace oficial. '' = todavía sin enlazar
+     vigencia     vigente | modificada | derogada | proyecto | condicionada
+     validado     true solo si se contrastó contra fuente oficial
+     revisado     fecha de la última revisión de ESTA ficha
+
+   REGLAS EDITORIALES
+
+   1. Una norma = una ficha. Se separa sólo cuando un mismo instrumento
+      contiene regímenes con disparadores, sujetos o naturaleza de obligación
+      tan distintos que una única ficha impediría expresar la aplicabilidad.
+   2. Entra una ficha sólo si impone, condiciona o establece de forma directa
+      requisitos, controles o prácticas de seguridad de la información,
+      ciberseguridad o protección técnica u organizativa de datos. Una norma
+      que únicamente ayuda a determinar el sujeto alcanzado se cita como
+      contexto en 'ref', no se carga como ficha. Excepción: vincula:'contexto',
+      para el marco legal que define el terreno sin imponer controles.
+   3. analisis:true sólo cuando la aplicabilidad no pueda resolverse
+      razonablemente con una pregunta. Si falta una pregunta, primero se
+      crea la pregunta.
+   4. evidencia se determina por el mecanismo real de demostración de
+      cumplimiento, no por intuición ni por el tipo de norma. Puede subir o
+      bajar durante la validación.
+   5. Si un dato caduca por calendario y no por reforma (montos indexados,
+      umbrales ajustables), no va en 'exige'.
+   6. En Capa 1, 'ind' y 'aplica' cumplen funciones distintas. 'ind' determina
+      en qué industrias debe descubrirse la ficha y debe ser suficientemente
+      amplio para no descartarla prematuramente; 'aplica' expresa la condición
+      concreta que determina su aplicabilidad y debe ser preciso. La industria
+      orienta dónde buscar; el disparador decide si aplica.
+   ========================================================================== */
+
+const INDUSTRIAS = [
+  {id:'financieras',nom:'Entidades financieras'},
+  {id:'seguros',nom:'Seguros'},
+  {id:'fintech',nom:'Fintech y proveedores de pago'},
+  {id:'salud',nom:'Salud'},
+  {id:'dispmed',nom:'Dispositivos médicos y software de salud'},
+  {id:'retail',nom:'Retail y comercio electrónico'},
+  {id:'tecnologia',nom:'Tecnología, software y servicios'}
+];
+
+/* Los grupos ordenan el cuestionario. Las preguntas salen solo de acá. */
+const GRUPOS = [
+  {id:'datos', tit:'Qué datos tratás'},
+  {id:'oper',  tit:'Cómo operás'},
+  {id:'geo',   tit:'Dónde están tus clientes'}
+];
+
+const FLAGS = [
+  {id:'datos_personales',grupo:'datos',preg:'¿Tratás datos personales de cualquier tipo?'},
+  {id:'sensibles_ley',grupo:'datos',preg:'¿Tratás datos sensibles según la definición legal argentina?',
+   nota:'Origen racial o étnico, opiniones políticas, convicciones religiosas, filosóficas o morales, afiliación sindical, salud y vida sexual.'},
+  {id:'alto_riesgo',grupo:'datos',preg:'¿Tratás datos biométricos, de geolocalización o de menores?',
+   nota:'No son “sensibles” por definición legal, pero reciben tratamiento reforzado en la práctica.'},
+  {id:'tarjetas',grupo:'datos',preg:'¿Almacenás, procesás o transmitís datos de tarjetas de pago?'},
+  {id:'ot',grupo:'oper',preg:'¿Tenés tecnología operativa, industrial o SCADA?'},
+  {id:'desarrollo',grupo:'oper',preg:'¿Desarrollás software propio?'},
+  {id:'nube',grupo:'oper',preg:'¿Prestás servicios en la nube a terceros?'},
+  {id:'monitoreo_personal',grupo:'oper',preg:'¿Monitoreás la actividad de trabajadores o utilizás controles sobre el personal con fines de seguridad?'},
+  {id:'plataforma_receta',grupo:'oper',preg:'¿Operás una plataforma de prescripción electrónica o un repositorio de recetas?'},
+  {id:'farmacia',grupo:'oper',preg:'¿Operás una farmacia que dispensa medicamentos?'},
+  {id:'pos_presencial',grupo:'oper',preg:'¿Aceptás pagos presenciales con tarjeta mediante terminales POS?'},
+  {id:'ecommerce_consumidor',grupo:'oper',preg:'¿Vendés bienes o servicios a consumidores a través de Internet?'},
+  {id:'producto_medico_software',grupo:'oper',preg:'¿Fabricás o desarrollás productos médicos o productos para diagnóstico in vitro que incorporan software, o software que constituye por sí mismo un producto médico?'},
+  {id:'hce',grupo:'oper',preg:'¿Gestionás historias clínicas electrónicas?'},
+  {id:'receta_salud',grupo:'oper',preg:'¿Emitís, almacenás, validás o dispensás recetas o prescripciones electrónicas?'},
+  {id:'proveedor_regulado',grupo:'oper',preg:'¿Le prestás servicios críticos a una empresa regulada?',
+   nota:'Entidad financiera, aseguradora, prestador de salud, organismo público.'},
+  {id:'uif',grupo:'oper',preg:'¿Sos sujeto obligado ante la UIF?'},
+  {id:'datos_fuera_ar',grupo:'geo',preg:'¿Alojás o transferís datos personales fuera de Argentina?',
+   nota:'Incluye nube, casa matriz, proveedores de soporte y respaldos en el exterior.'},
+  {id:'personas_ue',grupo:'geo',preg:'¿Ofrecés bienes o servicios a personas en la Unión Europea, o monitoreás su comportamiento?'},
+  {id:'california',grupo:'geo',preg:'¿Hacés negocios en California?'},
+  {id:'salud_us',grupo:'geo',preg:'¿Tratás información de salud de personas en Estados Unidos por acuerdo con una entidad cubierta?'}
+];
+
+const NORMAS = [
+
+/* ---- CAPA 0 ---- */
+{id:'ley-25326',nom:'Ley 25.326 — Protección de Datos Personales',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'legal',capa:0,aplica:'datos_personales',
+ exige:'Consentimiento o excepción legal para el tratamiento, principios de calidad del dato, derechos del titular y medidas de seguridad. Los archivos o bases privadas que exceden el uso exclusivamente personal deben inscribirse. Además, cuando se tratan datos por cuenta de un tercero, no pueden utilizarse para otra finalidad ni cederse; terminada la prestación deben destruirse, salvo autorización expresa para conservarlos ante futuros encargos, por hasta dos años y con las condiciones de seguridad correspondientes.',
+ evidencia:'autodeclaracion',evidNota:'Inscripción registral y documentación interna; cuando corresponda, contrato de tratamiento por cuenta de terceros, política de retención y borrado, y evidencia de destrucción',
+ ref:'Ley 25.326, arts. 3, 4, 5, 9, 21, 24 y 25; Decreto 1558/2001, Anexo I art. 1',url:'https://www.argentina.gob.ar/normativa/nacional/64790/actualizacion',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'res-aaip-47-2018',nom:'Resolución AAIP 47/2018 — Medidas de seguridad recomendadas',emisor:'AAIP',
+ tipo:'resolucion',vincula:'referencia',capa:0,aplica:'datos_personales',
+ exige:'Catálogo de medidas recomendadas para el tratamiento y conservación de datos personales, tanto en medios informatizados como no informatizados. La AAIP las establece de modo referencial para facilitar el cumplimiento de la Ley 25.326.',
+ evidencia:'autodeclaracion',evidNota:'Política y registro de medidas aplicadas',
+ ref:'Resolución AAIP 47/2018, Anexos I y II. Deroga las Disposiciones DNPDP 11/2006 y 9/2008',
+ url:'https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-47-2018-312662/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-20744-control',nom:'Ley 20.744 — Controles y monitoreo del personal',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'legal',capa:0,aplica:'monitoreo_personal',
+ exige:'Si la organización utiliza controles personales destinados a proteger sus bienes o mecanismos de monitoreo sobre la actividad de los trabajadores, debe respetar las condiciones de los arts. 70 a 72: dignidad, discreción, conocimiento del trabajador y posibilidad de verificación por la autoridad laboral.',
+ evidencia:'autodeclaracion',evidNota:'Política comunicada y constancia de notificación',
+ ref:'Ley 20.744, arts. 70 a 72',
+ url:'https://www.argentina.gob.ar/normativa/nacional/25552/actualizacion',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-25506',nom:'Ley 25.506 — Firma digital',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'legal',capa:0,aplica:null,
+ exige:'Reconoce la firma digital y la firma electrónica. La firma digital válida goza de presunción de autoría e integridad; si una firma electrónica es desconocida, quien la invoca debe acreditar su validez.',
+ evidencia:'autodeclaracion',evidNota:'Certificados emitidos por certificador licenciado, política de firma',
+ ref:'Ley 25.506, arts. 1, 5, 7 y 8',
+ url:'https://www.argentina.gob.ar/normativa/nacional/70749/actualizacion',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-24766',nom:'Ley 24.766 — Confidencialidad',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'legal',capa:0,aplica:null,
+ exige:'Protege la información no divulgada mientras sea secreta, tenga valor comercial por ser secreta y haya sido objeto de medidas razonables para mantenerla así.',
+ evidencia:'autodeclaracion',evidNota:'Acuerdos de confidencialidad, clasificación de la información y controles de acceso, como formas de demostrar esas medidas razonables',
+ ref:'Ley 24.766, art. 1',
+ url:'https://www.argentina.gob.ar/normativa/nacional/41094/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'transferencia-internacional',nom:'Disposición 60-E/2016 y Resolución AAIP 198/2023 — Transferencia internacional',emisor:'AAIP',
+ tipo:'resolucion',vincula:'legal',capa:0,aplica:{allOf:['datos_personales','datos_fuera_ar']},
+ exige:'Transferir datos personales a un país sin nivel de protección adecuado exige consentimiento informado del titular o garantías contractuales. Las cláusulas modelo de la 60-E/2016 siguen vigentes; la Resolución 198/2023 sumó las de la Red Iberoamericana sin reemplazarlas. Un contrato distinto al modelo requiere aprobación de la Agencia.',
+ evidencia:'autodeclaracion',evidNota:'Cláusulas contractuales modelo firmadas, o contrato aprobado por la AAIP',
+ ref:'Disposición DNPDP 60-E/2016 (mod. Res. AAIP 34/2019); Resolución AAIP 198/2023',
+ url:'https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-198-2023-391538/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-26388',nom:'Ley 26.388 — Delitos informáticos',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'contexto',capa:0,aplica:null,
+ exige:'Tipifica acceso indebido, daño informático y fraude. No te impone controles: define qué conducta podés denunciar y por cuál puede responder tu gente.',
+ evidencia:'ninguna',evidNota:'—',
+ ref:'Ley 26.388 — arts. 153 bis (acceso indebido), 157 bis (banco de datos), 173 inc. 16 (fraude), 183 y 184 inc. 6 (daño informático, agravado en servicios públicos)',
+ url:'https://www.argentina.gob.ar/normativa/nacional/141790/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-27411',nom:'Ley 27.411 — Convenio de Budapest',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'contexto',capa:0,aplica:null,
+ exige:'Marco de cooperación internacional y preservación de evidencia digital. Relevante para cómo se pide y se conserva prueba, no como obligación de compliance.',
+ evidencia:'ninguna',evidNota:'—',
+ ref:'Ley 27.411 — aprueba el Convenio sobre Ciberdelito (Budapest)',
+ url:'https://www.argentina.gob.ar/normativa/nacional/ley-27411-304798/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+/* ---- CAPA 1 ---- */
+{id:'ley-26529',nom:'Ley 26.529 — Derechos del paciente e historia clínica',emisor:'Congreso de la Nación',
+ tipo:'ley',vincula:'legal',capa:1,ind:['salud'],aplica:null,
+ exige:'La historia clínica informatizada debe preservar integridad, autenticidad, inalterabilidad, perdurabilidad y recuperabilidad. Exige accesos restringidos con identificación, control de modificaciones y protección contra accesos no autorizados durante la custodia.',
+ evidencia:'autodeclaracion',evidNota:'Registro de accesos y modificaciones, política de custodia y conservación',
+ ref:'Ley 26.529, cap. IV (arts. 12 a 20), texto actualizado. La ley fue modificada por las Leyes 26.742 y 27.797, sin que conste alteración del capítulo utilizado',
+ url:'https://www.argentina.gob.ar/normativa/nacional/160432/actualizacion',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-27706-hce',nom:'Ley 27.706 y Decreto 393/2023 — Historia clínica electrónica',emisor:'Congreso de la Nación / PEN',
+ tipo:'ley',vincula:'legal',capa:1,ind:['salud'],aplica:'hce',
+ exige:'El registro, actualización y consulta deben darse en condiciones de seguridad, integridad, autenticidad, confiabilidad, conservación, disponibilidad, acceso y trazabilidad. Define seguridad como confidencialidad, integridad y disponibilidad más autenticidad, no repudio y fiabilidad, y exige autenticación de intervinientes, perfiles de acceso y auditoría de interacciones.',
+ evidencia:'autodeclaracion',evidNota:'Perfiles de acceso, registro de auditoría de interacciones, inscripción en el Registro de Dominios de Interoperabilidad en Salud',
+ ref:'Ley 27.706, arts. 6 a 8; Decreto 393/2023, Anexo, arts. 4, 5, 6 incs. c y f, y 7 incs. a y d',
+ url:'https://www.argentina.gob.ar/normativa/nacional/norma-387475/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ley-27553-receta',nom:'Ley 27.553, Decreto 98/2023 y Resolución 2214/2025 — Prescripción electrónica',emisor:'Congreso de la Nación / Ministerio de Salud',
+ tipo:'ley',vincula:'legal',capa:1,ind:['salud'],aplica:'receta_salud',
+ exige:'La prescripción electrónica debe realizarse mediante plataformas habilitadas y registradas. El régimen alcanza medicamentos, dispositivos, estudios, prácticas y procedimientos, y exige requisitos de integridad, seguridad, confidencialidad e interoperabilidad; los estándares técnicos deben preservar la confidencialidad, integridad y disponibilidad de la información sanitaria.',
+ evidencia:'autodeclaracion',evidNota:'Registro de la plataforma, CUIR, evidencia de estándares de interoperabilidad',
+ ref:'Ley 27.553, art. 1 (sustituido por DNU 70/2023); Decreto 98/2023, Anexo, arts. 1 y 3; Resolución 2214/2025, arts. 1, 3 a 5 y Anexo III',
+ url:'https://www.argentina.gob.ar/normativa/nacional/340919/actualizacion',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'renapdis',nom:'ReNaPDiS — Plataformas de prescripción y repositorios de recetas',emisor:'Ministerio de Salud',
+ tipo:'resolucion',vincula:'legal',capa:1,ind:['salud'],aplica:'plataforma_receta',
+ exige:'Las plataformas de prescripción y los repositorios alcanzados deben inscribirse en el Registro de Recetarios Electrónicos del ReNaPDiS y cumplir requisitos técnicos de seguridad, interoperabilidad, autenticación, trazabilidad y continuidad. Entre ellos: TLS 1.2 o superior, controles de integridad y acceso, alta disponibilidad, RPO menor a 30 minutos, RTO menor a 2 horas y plan de continuidad con al menos dos pruebas anuales. Para repositorios se agregan reglas específicas de acceso a recetas, interoperabilidad y autenticación de plataformas.',
+ evidencia:'homologacion',evidNota:'Certificado de inscripción u homologación en el Registro de Recetarios Electrónicos y evidencia técnica disponible para fiscalización',
+ ref:'Resolución 1959/2024, arts. 1, 4, 6, 7 y 11; Disposición DNSISA 1/2024, arts. 1, 3 y 4; Resolución 5744/2024, arts. 1 a 4; Disposición DNSISA 1/2025, arts. 1 a 7 y Anexos I a IV, especialmente Anexo III',
+ url:'https://www.argentina.gob.ar/normativa/nacional/norma-415504/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'res-638-2026-farmacias',nom:'Resolución 638/2026 — Sistemas de gestión de farmacias',emisor:'Ministerio de Salud',
+ tipo:'resolucion',vincula:'legal',capa:1,ind:['salud'],aplica:'farmacia',analisis:true,
+ exige:'Las farmacias deben validar y registrar digitalmente cada acto de dispensa de medicamentos ambulatorios, con token o mecanismo equivalente para identificar a quien retira, registro del tercero autorizado, conservación de la información y contingencia ante caídas o falta de conectividad.',
+ evidencia:'autodeclaracion',evidNota:'Sistema de gestión adecuado, registro de dispensa, plan de contingencia por indisponibilidad',
+ ref:'Resolución 638/2026, arts. 1 a 8 y 10',
+ url:'https://www.argentina.gob.ar/normativa/nacional/norma-426432/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27799',nom:'ISO 27799:2025 — Seguridad de la información en salud',emisor:'ISO',
+ tipo:'estandar',vincula:'referencia',capa:1,ind:['salud'],aplica:null,
+ exige:'Controles y guía de implementación para proteger la información de salud, basados en ISO/IEC 27002:2022. Aplica a organizaciones sanitarias y a otras entidades que custodian información personal de salud, incluyendo historias clínicas electrónicas, dispositivos médicos con software y servicios en la nube.',
+ evidencia:'ninguna',evidNota:'Implementación de controles de seguridad aplicables al entorno y a la información de salud',
+ ref:'ISO 27799:2025 — Health informatics — Information security controls in health based on ISO/IEC 27002',url:'https://www.iso.org/standard/84647.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iec-81001-5-1',nom:'IEC 81001-5-1:2021 — Ciberseguridad en el ciclo de vida del software de salud',emisor:'IEC',
+ tipo:'estandar',vincula:'referencia',capa:1,ind:['salud','dispmed'],aplica:'desarrollo',
+ exige:'Requisitos de ciberseguridad para el desarrollo y mantenimiento de software de salud a lo largo de su ciclo de vida, incluyendo procesos, actividades y tareas de desarrollo seguro.',
+ evidencia:'ninguna',evidNota:'Evidencia dentro de los procesos de desarrollo y mantenimiento seguro del software',
+ ref:'IEC 81001-5-1:2021 — edición 1.0 (versión corregida, diciembre de 2025)',url:'https://webstore.iec.ch/en/publication/63293',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'anmat-11467-2024',nom:'Disposición ANMAT 11.467/2024 — Ciberseguridad de productos médicos',emisor:'ANMAT',
+ tipo:'disposicion',vincula:'legal',capa:1,ind:['dispmed','salud','tecnologia'],aplica:'producto_medico_software',
+ exige:'Los productos médicos deben diseñarse y fabricarse reduciendo adecuadamente el riesgo de acceso no autorizado. Cuando incorporan software o constituyen software como producto médico, el fabricante debe considerar la seguridad de la información durante su ciclo de vida, definir requisitos mínimos de hardware, redes y seguridad de TI, y mantener un nivel adecuado de ciberseguridad frente a intentos de acceso no autorizado.',
+ evidencia:'autodeclaracion',evidNota:'Documentación técnica de diseño, gestión de riesgos y requisitos de ciberseguridad del producto',
+ ref:'Disposición ANMAT 11.467/2024, arts. 1 y 2; Res. GMC 07/24, Anexo, aps. 6.5.6 y 6.8.2 a 6.8.5. Entrada en vigor condicionada al mecanismo del art. 2: no computar como exigible hasta confirmar el aviso en el Boletín Oficial. El encuadre como producto médico o SaMD se determina conforme a la Disposición ANMAT 64/2025; ANMAT aclaró en septiembre de 2026 que puede incluir aplicaciones de salud integradas en wearables',url:'https://www.argentina.gob.ar/normativa/nacional/disposici%C3%B3n-11467-2024-408073/texto',vigencia:'condicionada',validado:true,revisado:'2026-09-20'},
+
+{id:'tercerizacion-regulado',nom:'Requisitos de seguridad por tercerización de clientes regulados',emisor:'Varios reguladores, vía contrato',
+ tipo:'esquema',vincula:'contractual',capa:3,aplica:'proveedor_regulado',analisis:true,
+ exige:'Cuando prestás servicios a una organización regulada, sus requisitos de gestión de terceros pueden trasladarse a la relación contractual. Según el regulador, el tipo de servicio y su criticidad, pueden incluir obligaciones de seguridad de la información, gestión de incidentes, continuidad, auditoría, subcontratación y tratamiento o localización de datos.',
+ evidencia:'informe',evidNota:'Cláusulas contractuales, auditorías del cliente, cuestionarios de terceros, SOC 2 o ISO 27001 como sustituto habitual',
+ ref:'Según el regulador del cliente',url:'',vigencia:'vigente',validado:false,revisado:'2026-09-20'},
+
+{id:'res-104-2005-ecommerce',nom:'Resolución 104/2005 — Información de seguridad y privacidad en comercio electrónico',emisor:'Secretaría de Coordinación Técnica',
+ tipo:'resolucion',vincula:'legal',capa:0,aplica:'ecommerce_consumidor',
+ exige:'Los proveedores que realizan relaciones de consumo por Internet deben informar en su sitio, de forma clara y accesible, el nivel de seguridad utilizado para la protección permanente de los datos personales y la política de privacidad aplicable.',
+ evidencia:'autodeclaracion',evidNota:'Política de privacidad publicada y declaración del nivel de seguridad en el sitio',
+ ref:'Resolución 104/2005, arts. 1 a 3; Anexo (Res. MERCOSUR GMC 21/04), arts. 1 y 3 incs. h e i',
+ url:'https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-104-2005-107456/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'res-87-2024-pos',nom:'Resolución 87/2024 — Protección de la tarjeta en pagos con POS',emisor:'Secretaría de Comercio',
+ tipo:'resolucion',vincula:'legal',capa:0,aplica:'pos_presencial',
+ exige:'Los establecimientos que aceptan tarjetas de crédito, compra o débito y cobran mediante terminales POS deben poner la terminal a disposición del consumidor de modo que éste conserve en todo momento el control de su tarjeta, hasta finalizar la operación.',
+ evidencia:'ninguna',evidNota:'Cumplimiento operativo: terminal POS puesta a disposición del consumidor sin desapoderarlo de su tarjeta',
+ ref:'Resolución 87/2024, arts. 1 a 4',
+ url:'https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-87-2024-397264/texto',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'pci-dss-401',nom:'PCI DSS v4.0.1',emisor:'PCI Security Standards Council',
+ tipo:'estandar',vincula:'contractual',capa:3,aplica:'tarjetas',
+ exige:'Doce requisitos sobre el dato de tarjeta y su entorno. El método de validación y reporte lo determina la entidad que acepta el cumplimiento —normalmente la marca o el adquirente— según el rol y el entorno; puede requerir ROC, AOC o SAQ.',
+ evidencia:'atestacion',evidNota:'ROC, AOC o SAQ. El Council no emite ni reconoce certificados de cumplimiento.',
+ ref:'PCI DSS v4.0.1',url:'https://www.pcisecuritystandards.org/document_library/',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+/* ---- CAPA 2 ---- */
+{id:'iso-27000',nom:'ISO/IEC 27000:2026 — Fundamentos de la familia ISO 27000',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:null,
+ exige:'Presenta los conceptos y principios fundamentales de los sistemas de gestión de seguridad de la información y explica cómo se relacionan las normas de la familia ISO/IEC 27000.',
+ evidencia:'ninguna',evidNota:'Norma de orientación; no establece requisitos de certificación ni controles independientes.',
+ ref:'ISO/IEC 27000:2026 — Information security, cybersecurity and privacy protection — Information security management systems — Overview, edición 6. Reemplaza a la edición 2018 y deja de ser documento de terminología',
+ url:'https://www.iso.org/standard/27000',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27001',nom:'ISO/IEC 27001 — Sistema de gestión de seguridad de la información',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:null,
+ exige:'Define los requisitos para establecer, implementar, mantener y mejorar continuamente un sistema de gestión de seguridad de la información.',
+ evidencia:'certificacion',evidNota:'Certificado de sistema de gestión emitido por organismo acreditado',
+ ref:'ISO/IEC 27001:2022 + Amd 1:2024 — Climate action changes (cláusulas 4.1 y 4.2)',url:'https://www.iso.org/standard/27001',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27701',nom:'ISO/IEC 27701:2025 — Sistema de gestión de privacidad',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:'datos_personales',
+ exige:'Establece requisitos para implementar, mantener y mejorar continuamente un sistema de gestión de privacidad (PIMS). La edición 2025 es autónoma y puede implementarse y certificarse independientemente de ISO/IEC 27001.',
+ evidencia:'certificacion',evidNota:'Certificado de PIMS emitido por organismo acreditado',
+ ref:'ISO/IEC 27701:2025 — Privacy information management systems — Requirements and guidance',url:'https://www.iso.org/standard/27701',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27002',nom:'ISO/IEC 27002:2022 — Controles de seguridad de la información',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'practica',capa:2,aplica:null,
+ exige:'Proporciona un conjunto de controles de seguridad de la información y orientación para seleccionarlos e implementarlos según los riesgos y necesidades de la organización.',
+ evidencia:'ninguna',evidNota:'No es certificable. La certificación corresponde a ISO/IEC 27001.',
+ ref:'ISO/IEC 27002:2022',url:'https://www.iso.org/standard/75652.html',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'nist-csf',nom:'NIST CSF 2.0 — Gestión del riesgo de ciberseguridad',emisor:'NIST',
+ tipo:'marco',vincula:'practica',capa:2,aplica:null,
+ exige:'Organiza el programa en seis funciones —incluida Gobierno, que suma la versión 2.0— y sirve para describir, evaluar, priorizar y comunicar el estado de la gestión del riesgo de ciberseguridad.',
+ evidencia:'autodeclaracion',evidNota:'Perfiles actual y objetivo, y tiers. NIST no ofrece certificación CSF.',
+ ref:'NIST CSF 2.0 — outcomes, profiles y tiers',
+ url:'https://www.nist.gov/publications/nist-cybersecurity-framework-csf-20',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'cis-controls',nom:'CIS Controls v8.1 — Controles priorizados de ciberseguridad',emisor:'Center for Internet Security',
+ tipo:'marco',vincula:'practica',capa:2,aplica:null,
+ exige:'Conjunto priorizado de salvaguardas, organizadas en tres grupos de implementación —IG1, IG2 e IG3— según el perfil de riesgo y los recursos de la organización. CIS indica comenzar por IG1.',
+ evidencia:'autodeclaracion',evidNota:'Autoevaluación por grupo de implementación',
+ ref:'CIS Controls v8.1',url:'https://www.cisecurity.org/controls/v8-1',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'cobit',nom:'COBIT 2019 — Gobierno y gestión de tecnología',emisor:'ISACA',
+ tipo:'marco',vincula:'referencia',capa:2,aplica:null,
+ exige:'Marco para el gobierno y la gestión de la información y la tecnología empresarial, con 40 objetivos de gobierno y gestión.',
+ evidencia:'ninguna',evidNota:'Las credenciales que ISACA ofrece sobre COBIT 2019 son de personas, no de la organización.',
+ ref:'COBIT 2019',url:'https://www.isaca.org/resources/cobit',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-31000',nom:'ISO 31000:2018 — Gestión de riesgos',emisor:'ISO',
+ tipo:'estandar',vincula:'practica',capa:2,aplica:null,
+ exige:'Principios, marco y proceso para gestionar riesgos en cualquier tipo de organización.',
+ evidencia:'ninguna',evidNota:'No es certificable: es una norma de directrices.',
+ ref:'ISO 31000:2018',url:'https://www.iso.org/standard/65694.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27005',nom:'ISO/IEC 27005:2022 — Gestión de riesgos de seguridad de la información',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'practica',capa:2,aplica:null,
+ exige:'Guía para identificar, evaluar y tratar riesgos de seguridad de la información en apoyo de un SGSI basado en ISO/IEC 27001.',
+ evidencia:'ninguna',evidNota:'No es certificable.',
+ ref:'ISO/IEC 27005:2022',url:'https://www.iso.org/standard/80585.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-22301',nom:'ISO 22301:2019 — Continuidad del negocio',emisor:'ISO',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:null,
+ exige:'Sistema de gestión de continuidad del negocio: análisis de impacto, estrategias de recuperación, planes y programa de pruebas.',
+ evidencia:'certificacion',evidNota:'Certificado de sistema de gestión emitido por organismo acreditado',
+ ref:'ISO 22301:2019 + Amd 1:2024. Hay una nueva edición en desarrollo, todavía no publicada',url:'https://www.iso.org/standard/75106.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27035',nom:'ISO/IEC 27035 — Gestión de incidentes de seguridad de la información',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'practica',capa:2,aplica:null,
+ exige:'Ciclo de vida de la gestión de incidentes: preparación, detección, reporte, evaluación, respuesta y lecciones aprendidas.',
+ evidencia:'ninguna',evidNota:'—',
+ ref:'ISO/IEC 27035-1:2023 y 27035-2:2023',url:'https://www.iso.org/standard/78973.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27036',nom:'ISO/IEC 27036 — Seguridad en relaciones con proveedores',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'practica',capa:2,aplica:null,
+ exige:'Requisitos y guías para proteger la información en relaciones cliente-proveedor y gestionar riesgos de seguridad en la cadena de suministro de hardware, software y servicios.',
+ evidencia:'ninguna',evidNota:'No es certificable.',
+ ref:'ISO/IEC 27036-1:2021, 27036-2:2022 y 27036-3:2023',url:'https://www.iso.org/standard/82060.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'soc2',nom:'SOC 2 — Controles de organizaciones de servicios',emisor:'AICPA',
+ tipo:'esquema',vincula:'referencia',capa:2,aplica:null,
+ exige:'Informe de atestación sobre los controles de una organización de servicios relevantes para seguridad, disponibilidad, integridad del procesamiento, confidencialidad o privacidad. Type I evalúa el diseño a una fecha; Type II incorpora la efectividad operativa durante un período.',
+ evidencia:'atestacion',evidNota:'Informe de atestación emitido por un CPA. No es una certificación.',
+ ref:'AICPA Trust Services Criteria',url:'https://www.aicpa-cima.com/topic/audit-assurance/audit-and-assurance-greater-than-soc-2',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27017',nom:'ISO/IEC 27017:2026 — Seguridad en servicios cloud',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:'nube',
+ exige:'Controles específicos de servicios en la nube, con el reparto de responsabilidades entre proveedor y cliente.',
+ evidencia:'ninguna',evidNota:'Norma de controles para servicios cloud basada en ISO/IEC 27002; puede integrarse al conjunto de controles de un SGSI ISO/IEC 27001.',
+ ref:'ISO/IEC 27017:2026, edición 2 (julio de 2026), basada en ISO/IEC 27002:2022. Reemplaza a la edición 2015, retirada',url:'https://www.iso.org/es/norma/27017',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-27018',nom:'ISO/IEC 27018:2025 — Protección de datos personales en la nube',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:{allOf:['nube','datos_personales']},
+ exige:'Controles para el proveedor de nube que actúa como encargado del tratamiento de datos personales de terceros.',
+ evidencia:'ninguna',evidNota:'No es certificable por separado: se evalúa en relación con ISO/IEC 27001.',
+ ref:'ISO/IEC 27018:2025. Reemplaza a la edición 2019, retirada',url:'https://www.iso.org/standard/27018',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'iso-42001',nom:'ISO/IEC 42001:2023 — Sistema de gestión de inteligencia artificial',emisor:'ISO/IEC',
+ tipo:'estandar',vincula:'referencia',capa:2,aplica:null,
+ exige:'Especifica requisitos para establecer, implementar, mantener y mejorar continuamente un sistema de gestión de IA, para organizaciones que proveen o utilizan productos o servicios basados en inteligencia artificial.',
+ evidencia:'certificacion',evidNota:'Certificación voluntaria. ISO/IEC 42006:2025 fija los requisitos para los organismos que certifican.',
+ ref:'ISO/IEC 42001:2023',url:'https://www.iso.org/standard/42001',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'owasp-asvs',nom:'OWASP ASVS 5.0 — Verificación de seguridad de aplicaciones',emisor:'OWASP Foundation',
+ tipo:'marco',vincula:'practica',capa:2,aplica:'desarrollo',
+ exige:'Base verificable para probar controles técnicos de seguridad de aplicaciones y requisitos de desarrollo seguro, por nivel.',
+ evidencia:'evaluacion',evidNota:'Informe o checklist de verificación ASVS por nivel. OWASP no certifica aplicaciones ni proveedores.',
+ ref:'OWASP ASVS 5.0.0',url:'https://owasp.org/projects/asvs',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'nist-ssdf',nom:'NIST SP 800-218 — Desarrollo seguro de software',emisor:'NIST',
+ tipo:'marco',vincula:'practica',capa:2,aplica:'desarrollo',
+ exige:'Conjunto de prácticas de desarrollo seguro integrables en cualquier SDLC para reducir vulnerabilidades en el software publicado, reducir el impacto de las que persistan y abordar sus causas raíz.',
+ evidencia:'autodeclaracion',evidNota:'Matriz o registro interno de prácticas SSDF implementadas',
+ ref:'NIST SP 800-218 v1.1 (final). La v1.2 sigue como Initial Public Draft',url:'https://csrc.nist.gov/pubs/sp/800/218/final',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+/* ---- CAPA 3 ---- */
+{id:'gdpr',nom:'GDPR — Reglamento UE 2016/679',emisor:'Unión Europea',
+ tipo:'ley',vincula:'legal',capa:3,aplica:{allOf:['datos_personales','personas_ue']},
+ exige:'Base legal, derechos del titular y condiciones de transferencia internacional. La brecha se notifica a la autoridad sin dilación indebida y, de ser posible, dentro de las 72 horas, salvo que sea improbable que genere riesgo para los derechos y libertades de las personas. Para una organización sin establecimiento en la UE se activa por ofrecer bienes o servicios a personas allí, o por monitorear su comportamiento.',
+ evidencia:'autodeclaracion',evidNota:'Registro de actividades de tratamiento, EIPD, DPO cuando corresponda',
+ ref:'Reglamento (UE) 2016/679, arts. 3, 6, 12 a 22, 30, 33, 35, 37 y 44 a 49',url:'https://eur-lex.europa.eu/legal-content/ES/TXT/?uri=CELEX%3A32016R0679',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'ccpa-cpra',nom:'CCPA / CPRA — California',emisor:'California Privacy Protection Agency',
+ tipo:'ley',vincula:'legal',capa:3,aplica:'california',analisis:true,
+ exige:'Derechos de acceso, eliminación y oposición a la venta o compartición (sharing) de datos de residentes de California. No se activa solo por tener clientes allí: exige hacer negocios en California y superar al menos uno de los umbrales de ingresos, volumen de titulares o proporción de ingresos por venta o compartición de datos. Desde el 1 de enero de 2026 rigen además regulaciones sobre evaluaciones de riesgo y auditorías de ciberseguridad para determinados negocios.',
+ evidencia:'autodeclaracion',evidNota:'Avisos de privacidad, canales de ejercicio de derechos',
+ ref:'Cal. Civ. Code §1798.140(d) — definición de “business”; regulaciones CPPA vigentes desde el 1/1/2026, con primeras auditorías escalonadas entre 2028 y 2030',url:'https://cppa.ca.gov/regulations/ccpa_updates.html',
+ vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'hipaa',nom:'HIPAA Security Rule',emisor:'HHS — Estados Unidos',
+ tipo:'ley',vincula:'legal',capa:3,aplica:'salud_us',
+ analisis:true,
+ exige:'Salvaguardas administrativas, físicas y técnicas sobre información de salud protegida electrónica (ePHI). La Security Rule obliga directamente a covered entities y a business associates, incluidos los subcontratistas: el BAA documenta las obligaciones, no es lo que crea el encuadre. Determinar si la relación concreta convierte a la empresa en business associate requiere análisis.',
+ evidencia:'autodeclaracion',evidNota:'Business Associate Agreement y análisis de riesgo documentado',
+ ref:'45 CFR Part 164, Subpart C — Security Rule',url:'https://www.hhs.gov/hipaa/for-professionals/security/laws-regulations/index.html',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
+
+{id:'uif-so',nom:'Resoluciones UIF — Sujetos obligados',emisor:'Unidad de Información Financiera',
+ tipo:'resolucion',vincula:'legal',capa:3,aplica:'uif',
+ exige:'Identificación del cliente, monitoreo de operaciones y reporte. Impacta en retención, integridad y protección de registros.',
+ evidencia:'informe',evidNota:'Manual de prevención, informes de revisor externo independiente',
+ ref:'Según resolución aplicable al tipo de sujeto obligado',url:'',
+ vigencia:'vigente',validado:false,revisado:'2026-09-20'}
+];
+
+/* ==========================================================================
+   MOTOR DE APLICABILIDAD — una sola función, usada por el filtro Y por el conteo
+   Devuelve: true | false | 'analisis' | 'indeterminado'
+   ========================================================================== */
+
+function evalRegla(r, flags){
+  if(r === null || r === undefined) return true;
+  if(typeof r === 'string') return flags.has(r);
+  if(r.allOf) return r.allOf.every(x => evalRegla(x, flags));
+  if(r.anyOf) return r.anyOf.some(x => evalRegla(x, flags));
+  if(r.not)   return !evalRegla(r.not, flags);
+  return true;
+}
+
+function aplicabilidad(n, ctx){
+  if(n.capa === 1){
+    if(!ctx.industria) return 'indeterminado';
+    if(!n.ind || !n.ind.includes(ctx.industria)) return false;
+  }
+  const pasa = evalRegla(n.aplica, ctx.flags);
+  if(!pasa) return false;
+  return n.analisis ? 'analisis' : true;
+}
+
+/* ========================================================================== */
+
+/* Recursos complementarios: NO son fichas. No entran en NORMAS, ni en
+   aplicabilidad(), ni en resultados(), ni en el texto copiado. Sólo se
+   muestran junto a la industria correspondiente. */
+const RECURSOS_SECTOR = [
+  {inds:['financieras','fintech'],
+   tit:'Normativa BCRA — Matriz específica',
+   txt:'El BCRA mantiene un marco regulatorio propio con requisitos de seguridad, tecnología y gestión de riesgos para entidades y actividades alcanzadas. Por su extensión y nivel de detalle, esa normativa se releva en una matriz independiente.',
+   cta:'Consultar Matriz Normativa BCRA →',
+   url:'https://bgotte.github.io/mapa-normativo-bcra/'}
+];
+
+function recursoHTML(indId){
+  return RECURSOS_SECTOR.filter(r => r.inds.includes(indId)).map(r =>
+    `<div class="recurso-sector">
+      <h4>${r.tit}</h4>
+      <p>${r.txt}</p>
+      <a href="${r.url}" target="_blank" rel="noopener">${r.cta}</a>
+    </div>`).join('');
+}
+
+const CAPAS = [
+  {n:0,tit:'Base argentina',sub:'Marco general argentino. Algunas fichas aplican de forma amplia y otras se activan según los datos o la actividad.'},
+  {n:1,tit:'Según tu industria',sub:'Requisitos que se activan específicamente por sector. Que una industria no tenga fichas propias no significa que no tenga obligaciones: muchas aparecen en las demás capas según su actividad, datos, contratos o jurisdicción.'},
+  {n:2,tit:'Marcos transversales',sub:'Estándares y marcos que pueden ser relevantes en distintas industrias según el contexto, los contratos o las exigencias de terceros.'},
+  {n:3,tit:'Según dónde operás y qué hacés',sub:'Obligaciones que se activan por jurisdicción, mercado o actividad específica.'}
+];
+const VINC = {legal:'Legal',contractual:'Contractual',referencia:'Referencia',practica:'Buena práctica',contexto:'Marco legal'};
+const EVID = {certificacion:'Certificación',atestacion:'Atestación',evaluacion:'Evaluación',
+  homologacion:'Homologación',autodeclaracion:'Autodeclaración',informe:'Informe de auditoría',
+  ninguna:'Sin entregable propio'};
+const VIGENCIA = {modificada:'modificada',derogada:'derogada',proyecto:'en proyecto',
+  condicionada:'entrada en vigor condicionada'};
+
+let ctx = {industria:'', flags:new Set(), filtrando:false};
+
+function condicionTexto(r){
+  if(!r) return '';
+  if(typeof r === 'string'){
+    const f = FLAGS.find(x => x.id === r);
+    return f ? f.preg.replace(/^¿/,'').replace(/\?$/,'').toLowerCase() : r;
+  }
+  if(r.allOf) return r.allOf.map(condicionTexto).join(' y además ');
+  if(r.anyOf) return r.anyOf.map(condicionTexto).join(', o bien ');
+  if(r.not)   return 'no ' + condicionTexto(r.not);
+  return '';
+}
+
+function fichaHTML(n, sufijo){
+  const cond = condicionTexto(n.aplica);
+  const fuente = n.url
+    ? `<a href="${n.url}" target="_blank" rel="noopener">${n.emisor}</a>`
+    : `${n.emisor} <span style="opacity:.7">(sin enlazar)</span>`;
+  const domId = sufijo ? `${n.id}--${sufijo}` : n.id;
+  return `<li class="ficha ${n.vincula}${n.analisis?' analisis':''}" id="${domId}" data-id="${n.id}">
+    <div class="ficha-cab">
+      <span class="ficha-nom">${n.nom}</span>
+      <span class="vinc">${VINC[n.vincula]}</span>
+      ${n.analisis?'<span class="flag requiere">requiere análisis</span>':''}
+      ${n.vigencia!=='vigente'?`<span class="flag modificada">${VIGENCIA[n.vigencia]||n.vigencia}</span>`:''}
+      ${!n.validado?'<span class="flag sinvalidar">fuente pendiente</span>':''}
+    </div>
+    ${cond?`<p class="disparador"><i>Aplica si</i> ${cond}.</p>`:''}
+    <p class="exige">${n.exige}</p>
+    <p class="meta">
+      Evidencia: ${EVID[n.evidencia]}${n.evidNota&&n.evidNota!=='—'?` — ${n.evidNota}`:''}
+      <span class="sep"> · </span>${n.ref}
+      <span class="sep"> · </span>${fuente}
+      <span class="sep"> · </span>revisado ${n.revisado}
+    </p>
+  </li>`;
+}
+
+function render(){
+  let html = '';
+  CAPAS.forEach(c => {
+    html += `<section class="capa" data-capa="${c.n}">
+      <div class="capa-cab"><h2>${c.tit}</h2><p>${c.sub}</p></div>`;
+    if(c.n === 1){
+      INDUSTRIAS.forEach(ind => {
+        const ns = NORMAS.filter(n => n.capa === 1 && n.ind && n.ind.includes(ind.id));
+        html += `<div class="sector" data-ind="${ind.id}">
+          <h3 class="sector-nom">${ind.nom}</h3>
+          ${recursoHTML(ind.id)}
+          ${ns.length ? `<ul class="fichas">${ns.map(f => fichaHTML(f, ind.id)).join('')}</ul>`
+                      : `<p class="sector-vacio">Sin fichas que se activen específicamente por industria en esta versión. Otras obligaciones pueden aparecer según tu actividad, datos, contratos o jurisdicción.</p>`}
+        </div>`;
+      });
+    } else if(c.n === 0){
+      const oblig = NORMAS.filter(n => n.capa === 0 && n.vincula !== 'contexto');
+      const marco = NORMAS.filter(n => n.capa === 0 && n.vincula === 'contexto');
+      html += `<ul class="fichas">${oblig.map(fichaHTML).join('')}</ul>`;
+      if(marco.length){
+        html += `<p class="sub-tit">Marco legal de referencia</p>
+          <p class="capa-cab" style="border:0;padding:0;margin:0 0 8px"><span style="font-size:14px;color:var(--tinta-suave)">No generan controles a implementar. Están acá porque definen el terreno.</span></p>
+          <ul class="fichas">${marco.map(fichaHTML).join('')}</ul>`;
+      }
+    } else {
+      html += `<ul class="fichas">${NORMAS.filter(n => n.capa === c.n).map(fichaHTML).join('')}</ul>`;
+    }
+    html += '</section>';
+  });
+  document.getElementById('mapa').innerHTML = html;
+
+  const val = NORMAS.filter(n => n.validado).length;
+  document.getElementById('contador').textContent = `${val} de ${NORMAS.length} fichas contrastadas contra fuente oficial`;
+}
+
+/* Un flag solo se muestra si alguna ficha cargada lo referencia.
+   Siguen existiendo en el vocabulario: reaparecen solos cuando una norma los usa. */
+function flagsEnUso(){
+  const usados = new Set();
+  const recorrer = r => {
+    if(!r) return;
+    if(typeof r === 'string'){ usados.add(r); return; }
+    if(r.allOf) r.allOf.forEach(recorrer);
+    if(r.anyOf) r.anyOf.forEach(recorrer);
+    if(r.not)   recorrer(r.not);
+  };
+  NORMAS.forEach(n => recorrer(n.aplica));
+  return usados;
+}
+
+function armarControles(){
+  const sel = document.getElementById('industria');
+  INDUSTRIAS.forEach(i => {
+    const o = document.createElement('option'); o.value = i.id; o.textContent = i.nom; sel.appendChild(o);
+  });
+  const usados = flagsEnUso();
+  const cont = document.getElementById('grupos');
+  GRUPOS.forEach(g => {
+    const fs = FLAGS.filter(f => f.grupo === g.id && usados.has(f.id));
+    if(!fs.length) return;
+    const div = document.createElement('div');
+    div.className = 'campo';
+    div.innerHTML = `<span class="grupo-tit">${g.tit}</span>
+      <ul class="preguntas">${fs.map(f => `<li><label>
+        <input type="checkbox" value="${f.id}">
+        <span>${f.preg}${f.nota?`<span class="nota">${f.nota}</span>`:''}</span>
+      </label></li>`).join('')}</ul>`;
+    cont.appendChild(div);
+  });
+}
+
+function aplicar(){
+  ctx.industria = document.getElementById('industria').value;
+  ctx.flags = new Set([...document.querySelectorAll('#grupos input:checked')].map(i => i.value));
+  ctx.filtrando = true;
+
+  /* Mismo motor para mostrar que para contar: no pueden discrepar. */
+  NORMAS.forEach(n => {
+    const r = aplicabilidad(n, ctx);
+    /* una ficha puede estar renderizada en varias industrias: hay que tocarlas todas */
+    document.querySelectorAll(`[data-id="${n.id}"]`).forEach(el => {
+      el.classList.toggle('oculta', r === false);
+      el.classList.toggle('analisis', r === 'analisis' || !!n.analisis);
+    });
+  });
+
+  document.querySelectorAll('.sector').forEach(s => {
+    const esta = !ctx.industria || s.dataset.ind === ctx.industria;
+    s.classList.toggle('oculto', !!ctx.industria && !esta);
+    s.classList.toggle('destacado', esta && !!ctx.industria);
+  });
+
+  resumen();
+  document.getElementById('resumen').scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function resultados(){
+  const out = {aplican:[], analisis:[], indeterminadas:[]};
+  NORMAS.forEach(n => {
+    const r = aplicabilidad(n, ctx);
+    if(r === true) out.aplican.push(n);
+    else if(r === 'analisis') out.analisis.push(n);
+    else if(r === 'indeterminado') out.indeterminadas.push(n);
+  });
+  return out;
+}
+
+function resumen(){
+  const res = resultados();
+  const grupos = ['legal','contractual','referencia','practica'];
+  let html = grupos.map(g => {
+    const n = res.aplican.filter(x => x.vincula === g).length;
+    return `<div class="conteo" style="border-top:4px solid var(--v-${g})">
+      <span class="n">${n}</span><span class="et">${VINC[g]}</span></div>`;
+  }).join('');
+  html += `<div class="conteo" style="border-top:4px solid var(--analisis)">
+    <span class="n">${res.analisis.length}</span><span class="et">Requiere análisis</span></div>`;
+  document.getElementById('conteos').innerHTML = html;
+
+  const ctxN = res.aplican.filter(x => x.vincula === 'contexto').length;
+  const partes = [];
+  if(ctxN) partes.push(`Además: ${ctxN} marcos legales de contexto relevantes.`);
+  if(res.indeterminadas.length) partes.push(`Hay ${res.indeterminadas.length} fichas sectoriales que no se pueden evaluar sin elegir industria; no están contadas arriba.`);
+  document.getElementById('notaInd').textContent = partes.join(' ');
+  document.getElementById('resumen').classList.add('visible');
+}
+
+function limpiar(){
+  document.getElementById('industria').value = '';
+  document.querySelectorAll('#grupos input').forEach(i => i.checked = false);
+  ctx = {industria:'', flags:new Set(), filtrando:false};
+  document.querySelectorAll('.sector').forEach(s => s.classList.remove('oculto','destacado'));
+  NORMAS.forEach(n => {
+    document.querySelectorAll(`[data-id="${n.id}"]`).forEach(el => {
+      el.classList.remove('oculta');
+      el.classList.toggle('analisis', !!n.analisis);
+    });
+  });
+  document.getElementById('resumen').classList.remove('visible');
+}
+
+function copiar(){
+  const res = resultados();
+  const ind = INDUSTRIAS.find(i => i.id === ctx.industria);
+  let txt = `Mapa de aplicabilidad normativa — ${ind ? ind.nom : 'sin industria definida'}\n`;
+  txt += `Generado el ${new Date().toLocaleDateString('es-AR')}\n\n`;
+  ['legal','contractual','referencia','practica','contexto'].forEach(g => {
+    const ns = res.aplican.filter(x => x.vincula === g);
+    if(!ns.length) return;
+    txt += `${VINC[g].toUpperCase()} (${ns.length})\n`;
+    ns.forEach(n => { txt += `  · ${n.nom} — ${n.exige}\n    Evidencia: ${EVID[n.evidencia]} · ${n.ref}\n`; });
+    txt += '\n';
+  });
+  if(res.analisis.length){
+    txt += `REQUIERE ANÁLISIS (${res.analisis.length})\n`;
+    res.analisis.forEach(n => { txt += `  · ${n.nom} — ${n.exige}\n`; });
+    txt += '\n';
+  }
+  if(res.indeterminadas.length) txt += `Sin industria definida quedaron ${res.indeterminadas.length} fichas sectoriales sin evaluar.\n\n`;
+  txt += 'Orientativo. No sustituye un análisis de aplicabilidad regulatoria.\n';
+  const btn = document.getElementById('btnCopiar');
+  const aviso = okCopia => {
+    btn.textContent = okCopia ? 'Copiado' : 'No se pudo copiar';
+    setTimeout(() => btn.textContent = 'Copiar resultado', 1800);
+  };
+  /* navigator.clipboard no existe en contextos no seguros, p. ej. al abrir el archivo con file:// */
+  const respaldo = () => {
+    const ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.setAttribute('readonly','');
+    ta.style.cssText = 'position:fixed;top:-1000px;opacity:0';
+    document.body.appendChild(ta);
+    ta.select();
+    let listo = false;
+    try { listo = document.execCommand('copy'); } catch(e) { listo = false; }
+    document.body.removeChild(ta);
+    aviso(listo);
+  };
+  if(navigator.clipboard && window.isSecureContext){
+    navigator.clipboard.writeText(txt).then(() => aviso(true)).catch(respaldo);
+  } else {
+    respaldo();
+  }
+}
+
+render();
+armarControles();
+
+const btn = document.getElementById('btnScoping');
+btn.addEventListener('click', () => {
+  const p = document.getElementById('panel');
+  const abierto = p.classList.toggle('abierto');
+  btn.setAttribute('aria-expanded', abierto);
+  btn.textContent = abierto ? 'Cerrar el cuestionario' : 'Ver qué le aplica a mi empresa';
+});
+document.getElementById('btnAplicar').addEventListener('click', aplicar);
+document.getElementById('btnLimpiar').addEventListener('click', limpiar);
+document.getElementById('btnCopiar').addEventListener('click', copiar);
+</script>
+</body>
+</html>
