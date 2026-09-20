@@ -14,74 +14,78 @@
   --v-legal:#B3261E; --v-contractual:#B3641E; --v-referencia:#7A6A12;
   --v-practica:#5A6670; --v-contexto:#8A9096; --analisis:#6B3FA0;
   --serif:'Spectral',Georgia,serif; --sans:'IBM Plex Sans',system-ui,-apple-system,sans-serif;
+
+  /* escala tipográfica: pasos enteros, sin medios puntos */
+  --t-xs:12px; --t-s:13px; --t-m:15px; --t-lg:16px; --t-xl:18px;
 }
 *{box-sizing:border-box}
 html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);
-  font-size:15px;line-height:1.5;font-variant-numeric:tabular-nums}
+  font-size:var(--t-m);line-height:1.55;font-variant-numeric:tabular-nums}
 .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
 
 header{border-bottom:2px solid var(--tinta);padding-bottom:18px;margin-bottom:20px}
-h1{font-family:var(--serif);font-weight:600;font-size:clamp(28px,5vw,44px);line-height:1.08;
-  margin:0 0 8px;letter-spacing:-.01em;max-width:15ch}
-.bajada{font-family:var(--serif);font-size:17px;color:var(--tinta-suave);margin:0;max-width:62ch;line-height:1.45}
-.firma{margin-top:14px;font-size:13px;color:var(--tinta-suave)}
+h1{font-family:var(--serif);font-weight:600;font-size:clamp(30px,5.2vw,50px);line-height:1.04;
+  margin:0 0 12px;letter-spacing:-.024em;text-wrap:balance}
+.bajada{font-size:var(--t-xl);color:var(--tinta-suave);margin:0;max-width:92ch;line-height:1.5}
+.firma{margin-top:16px;font-size:var(--t-s);color:var(--tinta-suave)}
 .firma b{font-weight:500;color:var(--tinta)}
 
 .aviso{border:1px solid var(--linea);border-left:4px solid var(--v-legal);background:var(--papel-alto);
-  padding:12px 14px;margin:0 0 22px;font-size:13.5px;line-height:1.45}
+  padding:14px 16px;margin:0 0 22px;font-size:var(--t-m);line-height:1.5}
 .aviso p{margin:0 0 6px}.aviso p:last-child{margin:0}
 .contador{font-weight:600}
 
-.scoping-btn{font-family:var(--sans);font-size:15px;font-weight:500;background:var(--accion);
+.scoping-btn{font-family:var(--sans);font-size:var(--t-lg);font-weight:500;background:var(--accion);
   color:#fff;border:0;padding:11px 18px;cursor:pointer;width:100%;text-align:left}
 .scoping-btn:hover{background:#0A4A43}
 .scoping-btn:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 .panel{border:1px solid var(--linea);border-top:0;background:var(--papel-alto);padding:0 16px;display:none}
 .panel.abierto{display:block;padding:18px 16px}
 .campo{margin-bottom:18px}
-.campo>label,.grupo-tit{display:block;font-weight:600;font-size:14px;margin-bottom:7px}
+.campo>label,.grupo-tit{display:block;font-weight:600;font-size:var(--t-s);letter-spacing:.02em;margin-bottom:8px}
 .grupo-tit{margin-top:16px}
-select{font-family:var(--sans);font-size:15px;padding:9px 10px;width:100%;max-width:380px;
+select{font-family:var(--sans);font-size:var(--t-m);padding:9px 10px;width:100%;max-width:380px;
   border:1px solid var(--linea);background:#fff;color:var(--tinta)}
 .preguntas{list-style:none;margin:0;padding:0;border-top:1px solid var(--linea-fina)}
 .preguntas li{border-bottom:1px solid var(--linea-fina)}
 .preguntas label{display:flex;gap:11px;align-items:flex-start;padding:11px 2px;cursor:pointer;
-  font-size:14.5px;line-height:1.4}
+  font-size:var(--t-m);line-height:1.45}
 .preguntas input{margin:2px 0 0;width:17px;height:17px;accent-color:var(--accion);flex:none}
-.preguntas .nota{display:block;font-size:12.5px;color:var(--tinta-suave);margin-top:2px}
+.preguntas .nota{display:block;font-size:var(--t-xs);color:var(--tinta-suave);margin-top:3px;line-height:1.45}
 .panel-pie{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
-.btn-sec{font-family:var(--sans);font-size:14px;background:transparent;color:var(--accion);
+.btn-sec{font-family:var(--sans);font-size:var(--t-s);background:transparent;color:var(--accion);
   border:1px solid var(--accion);padding:8px 14px;cursor:pointer}
 .btn-sec:hover{background:var(--accion);color:#fff}
 .btn-sec:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
 
 .resumen{display:none;border:1px solid var(--linea);border-top:0;background:#fff;padding:16px}
 .resumen.visible{display:block}
-.resumen h2{font-family:var(--serif);font-size:20px;margin:0 0 12px;font-weight:600}
+.resumen h2{font-family:var(--serif);font-size:22px;margin:0 0 13px;font-weight:600;letter-spacing:-.01em}
 .conteos{display:flex;flex-wrap:wrap;border:1px solid var(--linea-fina)}
 .conteo{flex:1 1 120px;padding:12px 14px;border-right:1px solid var(--linea-fina)}
 .conteo:last-child{border-right:0}
-.conteo .n{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1;display:block}
-.conteo .et{font-size:12.5px;color:var(--tinta-suave);margin-top:5px;display:block;line-height:1.3}
-.nota-ind{margin:12px 0 0;font-size:13.5px;color:var(--tinta-suave);line-height:1.45}
+.conteo .n{font-family:var(--serif);font-size:33px;font-weight:600;line-height:1;display:block;letter-spacing:-.02em}
+.conteo .et{font-size:var(--t-xs);color:var(--tinta-suave);margin-top:6px;display:block;line-height:1.35}
+.nota-ind{margin:13px 0 0;font-size:var(--t-m);color:var(--tinta-suave);line-height:1.5}
 
 .capa{margin-top:42px}
 .capa-cab{border-bottom:1px solid var(--tinta);padding-bottom:7px;margin-bottom:4px}
-.capa-cab h2{font-family:var(--serif);font-size:23px;font-weight:600;margin:0}
-.capa-cab p{margin:5px 0 0;font-size:14px;color:var(--tinta-suave);max-width:70ch}
-.sub-tit{font-family:var(--serif);font-size:16px;font-weight:600;margin:20px 0 2px;color:var(--tinta-suave)}
+.capa-cab h2{font-family:var(--serif);font-size:25px;font-weight:600;margin:0;letter-spacing:-.012em}
+.capa-cab p{margin:6px 0 0;font-size:var(--t-m);color:var(--tinta-suave);line-height:1.5}
+.sub-tit{font-family:var(--serif);font-size:var(--t-xl);font-weight:600;margin:24px 0 2px;color:var(--tinta-suave)}
+.sub-txt{margin:0 0 10px;font-size:var(--t-m);color:var(--tinta-suave);line-height:1.5}
 
 .sector{border-bottom:1px solid var(--linea-fina)}
 .sector.oculto{display:none}
-.sector-nom{font-family:var(--serif);font-size:17px;font-weight:600;padding:15px 0 7px;margin:0}
-.sector.destacado .sector-nom::after{content:'tu industria';font-family:var(--sans);font-size:11px;
+.sector-nom{font-family:var(--serif);font-size:var(--t-xl);font-weight:600;padding:16px 0 8px;margin:0}
+.sector.destacado .sector-nom::after{content:'tu industria';font-family:var(--sans);font-size:var(--t-xs);
   font-weight:500;color:#fff;background:var(--accion);padding:2px 7px;margin-left:9px;vertical-align:2px}
-.sector-vacio{font-size:13.5px;color:var(--tinta-suave);font-style:italic;padding:0 0 14px}
+.sector-vacio{font-size:var(--t-m);color:var(--tinta-suave);font-style:italic;padding:0 0 14px;line-height:1.5}
 .recurso-sector{border:1px solid var(--linea-fina);background:var(--papel-alto);
-  padding:12px 14px;margin:2px 0 18px;font-size:13.5px;line-height:1.45}
-.recurso-sector h4{font-family:var(--sans);font-size:14px;font-weight:600;margin:0 0 5px}
-.recurso-sector p{margin:0 0 9px;color:var(--tinta-suave);max-width:72ch}
+  padding:13px 15px;margin:2px 0 18px;font-size:var(--t-s);line-height:1.5}
+.recurso-sector h4{font-family:var(--sans);font-size:var(--t-m);font-weight:600;margin:0 0 6px}
+.recurso-sector p{margin:0 0 9px;color:var(--tinta-suave)}
 .recurso-sector a{color:var(--accion);font-weight:500;text-decoration:none}
 .recurso-sector a:hover{text-decoration:underline}
 .recurso-sector a:focus-visible{outline:3px solid var(--tinta);outline-offset:2px}
@@ -94,29 +98,29 @@ select{font-family:var(--sans);font-size:15px;padding:9px 10px;width:100%;max-wi
 .ficha.oculta{display:none}
 .ficha.analisis{border-left-style:dashed;border-color:var(--analisis)}
 .ficha-cab{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:baseline}
-.ficha-nom{font-weight:600;font-size:15px}
-.vinc{font-size:11.5px;font-weight:500;padding:1px 7px;border:1px solid currentColor}
+.ficha-nom{font-weight:600;font-size:var(--t-lg);letter-spacing:-.006em}
+.vinc{font-size:var(--t-xs);font-weight:500;padding:1px 7px;border:1px solid currentColor}
 .legal .vinc{color:var(--v-legal)} .contractual .vinc{color:var(--v-contractual)}
 .referencia .vinc{color:var(--v-referencia)} .practica .vinc{color:var(--v-practica)}
 .contexto .vinc{color:var(--v-contexto)}
-.flag{font-size:11.5px;font-weight:500}
+.flag{font-size:var(--t-xs);font-weight:500}
 .flag.sinvalidar{color:var(--tinta-suave);opacity:.8}
 .flag.modificada{color:var(--v-contractual)}
 .flag.requiere{color:var(--analisis)}
-.disparador{font-size:13.5px;color:var(--tinta-suave);margin:4px 0 0;line-height:1.4}
-.exige{font-family:var(--serif);font-size:15px;margin:5px 0 0;line-height:1.45;max-width:74ch}
-.meta{font-size:12.5px;color:var(--tinta-suave);margin:6px 0 0;line-height:1.5}
+.disparador{font-size:var(--t-s);color:var(--tinta-suave);margin:4px 0 0;line-height:1.45}
+.exige{font-family:var(--serif);font-size:var(--t-m);margin:6px 0 0;line-height:1.55;max-width:92ch}
+.meta{font-size:var(--t-xs);color:var(--tinta-suave);margin:7px 0 0;line-height:1.55}
 .meta a{color:var(--accion)}
 .meta .sep{color:var(--linea)}
 
 .leyenda{margin-top:46px;border-top:2px solid var(--tinta);padding-top:16px}
-.leyenda h2{font-family:var(--serif);font-size:19px;margin:0 0 10px;font-weight:600}
-.leyenda dl{margin:0 0 20px;display:grid;grid-template-columns:auto 1fr;gap:7px 14px;font-size:14px;align-items:baseline}
+.leyenda h2{font-family:var(--serif);font-size:21px;margin:0 0 12px;font-weight:600;letter-spacing:-.01em}
+.leyenda dl{margin:0 0 20px;display:grid;grid-template-columns:auto 1fr;gap:8px 15px;font-size:var(--t-s);align-items:baseline}
 .leyenda dt{font-weight:600;border-left:3px solid;padding-left:9px;white-space:nowrap}
 .leyenda dd{margin:0;color:var(--tinta-suave)}
-footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-size:13px;
-  color:var(--tinta-suave);line-height:1.5}
-footer p{max-width:74ch}
+footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-size:var(--t-m);
+  color:var(--tinta-suave);line-height:1.55}
+
 
 @media (max-width:600px){
   .wrap{padding:20px 15px 60px}
@@ -131,8 +135,8 @@ footer p{max-width:74ch}
 <div class="wrap">
 
 <header>
-  <h1>¿Qué normativa de seguridad le aplica a tu empresa?</h1>
-  <p class="bajada">Mapa de aplicabilidad para empresas que operan en Argentina. Cruza industria, obligaciones legales, exigencias contractuales y estándares de referencia.</p>
+  <h1>Mapa de aplicabilidad normativa — Argentina</h1>
+  <p class="bajada">¿Qué normativa de seguridad le aplica a tu empresa? Cruza industria, actividad, datos y contratos para mostrar qué obligaciones, exigencias contractuales y estándares alcanzan a una organización que opera en el país.</p>
   <p class="firma">Elaborado por <b>Bernardita Götte</b> · Versión 1.0 · Revisado 20/09/2026</p>
 </header>
 
@@ -721,7 +725,7 @@ function render(){
       html += `<ul class="fichas">${oblig.map(fichaHTML).join('')}</ul>`;
       if(marco.length){
         html += `<p class="sub-tit">Marco legal de referencia</p>
-          <p class="capa-cab" style="border:0;padding:0;margin:0 0 8px"><span style="font-size:14px;color:var(--tinta-suave)">No generan controles a implementar. Están acá porque definen el terreno.</span></p>
+          <p class="sub-txt">No generan controles a implementar. Están acá porque definen el terreno.</p>
           <ul class="fichas">${marco.map(fichaHTML).join('')}</ul>`;
       }
     } else {
