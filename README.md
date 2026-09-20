@@ -9,3 +9,12 @@ Cada ficha indica qué establece el marco, bajo qué condiciones puede resultar 
 La herramienta distingue entre obligaciones legales, exigencias contractuales, estándares de referencia, buenas prácticas y marcos legales de contexto.
 
 > **Importante:** el resultado es orientativo y no sustituye un análisis jurídico o regulatorio de aplicabilidad.
+
+## Autoría
+
+Desarrollado por **Bernardita Götte** 
+
+LinkedIn: [Bernardita Götte](https://www.linkedin.com/in/bernarditagotte/)
+
+## Estado del proyecto
+Proyecto en evolución. Se podrán incorporar nuevas normativas, ajustes metodológicos y mejoras en la experiencia de consulta.
