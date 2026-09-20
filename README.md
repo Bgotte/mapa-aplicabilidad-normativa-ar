@@ -1,2 +1,11 @@
-# mapa-aplicabilidad-normativa-ar
-Mapa interactivo de aplicabilidad normativa de ciberseguridad y seguridad de la información para empresas que operan en Argentina. Cruza actividad, industria, datos, jurisdicción, contratos y marcos de referencia.
+# Mapa de aplicabilidad normativa — Argentina
+
+Herramienta interactiva y orientativa para identificar qué normas, regulaciones, estándares y marcos de ciberseguridad, seguridad de la información y protección de datos pueden resultar relevantes para una empresa que opera en Argentina.
+
+El mapa cruza distintas dimensiones de aplicabilidad —industria, actividad, datos tratados, jurisdicción, relaciones contractuales y contexto regulatorio— para evitar asumir que las obligaciones de seguridad dependen únicamente del sector al que pertenece una organización.
+
+Cada ficha indica qué establece el marco, bajo qué condiciones puede resultar aplicable, qué tipo de evidencia puede esperarse, su fuente y la fecha de revisión.
+
+La herramienta distingue entre obligaciones legales, exigencias contractuales, estándares de referencia, buenas prácticas y marcos legales de contexto.
+
+> **Importante:** el resultado es orientativo y no sustituye un análisis jurídico o regulatorio de aplicabilidad.
