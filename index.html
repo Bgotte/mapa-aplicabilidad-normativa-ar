@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mapa de aplicabilidad normativa — Argentina</title>
+<title>Mapa de aplicabilidad normativa de seguridad de la información — Argentina</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,400;0,600;1,400&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -79,7 +79,7 @@ select{font-family:var(--sans);font-size:var(--t-m);padding:9px 10px;width:100%;
 .sector{border-bottom:1px solid var(--linea-fina)}
 .sector.oculto{display:none}
 .sector-nom{font-family:var(--serif);font-size:var(--t-xl);font-weight:600;padding:16px 0 8px;margin:0}
-.sector.destacado .sector-nom::after{content:'tu industria';font-family:var(--sans);font-size:var(--t-xs);
+.sector.destacado .sector-nom::after{content:'industria seleccionada';font-family:var(--sans);font-size:var(--t-xs);
   font-weight:500;color:#fff;background:var(--accion);padding:2px 7px;margin-left:9px;vertical-align:2px}
 .sector-vacio{font-size:var(--t-m);color:var(--tinta-suave);font-style:italic;padding:0 0 14px;line-height:1.5}
 .recurso-sector{border:1px solid var(--linea-fina);background:var(--papel-alto);
@@ -135,9 +135,9 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-s
 <div class="wrap">
 
 <header>
-  <h1>Mapa de aplicabilidad normativa — Argentina</h1>
-  <p class="bajada">¿Qué normativa de seguridad le aplica a tu empresa? Cruza industria, actividad, datos y contratos para mostrar qué obligaciones, exigencias contractuales y estándares alcanzan a una organización que opera en el país.</p>
-  <p class="firma">Elaborado por <b>Bernardita Götte</b> · Versión 1.0 · Revisado 20/09/2026</p>
+  <h1>Mapa de aplicabilidad normativa de seguridad de la información — Argentina</h1>
+  <p class="bajada">Herramienta orientativa para identificar qué normas, regulaciones, estándares y marcos de seguridad de la información y ciberseguridad pueden alcanzar a una organización que opera en Argentina, según su industria, actividad, datos, contratos y jurisdicción.</p>
+  <p class="firma">Elaborado por <b>Bernardita Götte</b> · Versión 1.1 · Revisado 21/09/2026</p>
 </header>
 
 <div class="aviso">
@@ -164,7 +164,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-s
 </div>
 
 <div class="resumen" id="resumen" aria-live="polite">
-  <h2>Lo que puede aplicar a tu empresa</h2>
+  <h2>Resultado orientativo</h2>
   <div class="conteos" id="conteos"></div>
   <p class="nota-ind" id="notaInd"></p>
 </div>
@@ -183,7 +183,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-s
     <dt style="border-color:var(--v-practica)">Buena práctica</dt>
     <dd>Guía voluntaria para diseñar o mejorar controles.</dd>
     <dt style="border-color:var(--v-contexto)">Marco legal</dt>
-    <dd>No te impone controles. Define el terreno penal o de derechos en el que operás.</dd>
+    <dd>No establece controles específicos. Define el marco penal o de derechos relevante para la organización.</dd>
   </dl>
   <h2>Evidencia esperada</h2>
   <dl>
@@ -205,7 +205,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-s
 </section>
 
 <footer>
-  <p><b>La industria no explica por sí sola qué requisitos de seguridad alcanzan a una empresa.</b> Una parte sustancial de este mapa surge de legislación general, marcos transversales y condiciones relacionadas con los datos, la actividad, la geografía y los contratos. La regulación sectorial es una capa más, no necesariamente el punto de partida.</p>
+  <p>La aplicabilidad de los requisitos de seguridad de la información no depende exclusivamente de la industria de la organización. También puede estar determinada por la actividad desarrollada, los datos tratados, las relaciones contractuales, la jurisdicción y otros factores regulatorios. Por este motivo, la regulación sectorial constituye una de las distintas capas consideradas en este mapa.</p>
   <p>Criterio de inclusión: entra toda norma, estándar o marco de seguridad de la información que pueda alcanzar a una empresa radicada en Argentina, cualquiera sea su origen. Incluye regímenes extraterritoriales que se activan por la actividad o por el mercado al que se dirige, y deja afuera los que requieren estar establecido en otra jurisdicción.</p>
   <p>Las fichas marcadas como “requiere análisis” dependen de umbrales o condiciones que un cuestionario no puede resolver. Se muestran siempre que el contexto las haga posibles, para que no pasen inadvertidas.</p>
   <p>La normativa del BCRA se releva en profundidad en una matriz específica mantenida por separado. <a href="https://bgotte.github.io/mapa-normativo-bcra/" target="_blank" rel="noopener" style="color:var(--accion)">Consultar Matriz Normativa BCRA →</a></p>
@@ -215,7 +215,7 @@ footer{margin-top:40px;padding-top:16px;border-top:1px solid var(--linea);font-s
 
 <script>
 /* ==========================================================================
-   MODELO DE DATOS v1.0
+   MODELO DE DATOS v1.1
 
    Cada ficha:
      id           identificador estable (no cambiarlo nunca: es el ancla)
@@ -360,7 +360,7 @@ const NORMAS = [
 
 {id:'ley-26388',nom:'Ley 26.388 — Delitos informáticos',emisor:'Congreso de la Nación',
  tipo:'ley',vincula:'contexto',capa:0,aplica:null,
- exige:'Tipifica acceso indebido, daño informático y fraude. No te impone controles: define qué conducta podés denunciar y por cuál puede responder tu gente.',
+ exige:'Tipifica conductas como el acceso indebido, el daño informático y el fraude informático. No establece controles de seguridad específicos, sino que define conductas penalmente relevantes vinculadas con sistemas, datos y activos digitales.',
  evidencia:'ninguna',evidNota:'—',
  ref:'Ley 26.388 — arts. 153 bis (acceso indebido), 157 bis (banco de datos), 173 inc. 16 (fraude), 183 y 184 inc. 6 (daño informático, agravado en servicios públicos)',
  url:'https://www.argentina.gob.ar/normativa/nacional/141790/texto',
@@ -435,7 +435,7 @@ const NORMAS = [
 
 {id:'tercerizacion-regulado',nom:'Requisitos de seguridad por tercerización de clientes regulados',emisor:'Varios reguladores, vía contrato',
  tipo:'esquema',vincula:'contractual',capa:3,aplica:'proveedor_regulado',analisis:true,
- exige:'Cuando prestás servicios a una organización regulada, sus requisitos de gestión de terceros pueden trasladarse a la relación contractual. Según el regulador, el tipo de servicio y su criticidad, pueden incluir obligaciones de seguridad de la información, gestión de incidentes, continuidad, auditoría, subcontratación y tratamiento o localización de datos.',
+ exige:'Cuando una organización presta servicios a una entidad regulada, sus requisitos de gestión de terceros pueden trasladarse a la relación contractual. Según el regulador, el tipo de servicio y su criticidad, pueden incluir obligaciones de seguridad de la información, gestión de incidentes, continuidad, auditoría, subcontratación y tratamiento o localización de datos.',
  evidencia:'informe',evidNota:'Cláusulas contractuales, auditorías del cliente, cuestionarios de terceros, SOC 2 o ISO 27001 como sustituto habitual',
  ref:'Según el regulador del cliente',url:'',vigencia:'vigente',validado:false,revisado:'2026-09-20'},
 
@@ -559,6 +559,14 @@ const NORMAS = [
  evidencia:'ninguna',evidNota:'No es certificable por separado: se evalúa en relación con ISO/IEC 27001.',
  ref:'ISO/IEC 27018:2025. Reemplaza a la edición 2019, retirada',url:'https://www.iso.org/standard/27018',vigencia:'vigente',validado:true,revisado:'2026-09-20'},
 
+{id:'csa-ccm',nom:'CSA CCM v4.1 — Controles de seguridad para cloud',emisor:'Cloud Security Alliance',
+ tipo:'marco',vincula:'practica',capa:2,aplica:'nube',
+ exige:'Marco de controles para evaluar y gestionar la seguridad de servicios cloud. Organiza 207 objetivos de control en 17 dominios y ayuda a definir responsabilidades de seguridad entre proveedores y clientes dentro de la cadena de suministro cloud.',
+ evidencia:'autodeclaracion',evidNota:'CAIQ completado como autoevaluación. El programa STAR permite, en niveles superiores, atestación o certificación por terceros.',
+ ref:'Cloud Controls Matrix (CCM) v4.1 + CAIQ v4.1. 207 controles en 17 dominios; incorpora 11 controles y elimina uno respecto de CCM v4.0.13',
+ url:'https://cloudsecurityalliance.org/research/cloud-controls-matrix/',
+ vigencia:'vigente',validado:true,revisado:'2026-09-21'},
+
 {id:'iso-42001',nom:'ISO/IEC 42001:2023 — Sistema de gestión de inteligencia artificial',emisor:'ISO/IEC',
  tipo:'estandar',vincula:'referencia',capa:2,aplica:null,
  exige:'Especifica requisitos para establecer, implementar, mantener y mejorar continuamente un sistema de gestión de IA, para organizaciones que proveen o utilizan productos o servicios basados en inteligencia artificial.',
@@ -654,9 +662,9 @@ function recursoHTML(indId){
 
 const CAPAS = [
   {n:0,tit:'Base argentina',sub:'Marco general argentino. Algunas fichas aplican de forma amplia y otras se activan según los datos o la actividad.'},
-  {n:1,tit:'Según tu industria',sub:'Requisitos que se activan específicamente por sector. Que una industria no tenga fichas propias no significa que no tenga obligaciones: muchas aparecen en las demás capas según su actividad, datos, contratos o jurisdicción.'},
+  {n:1,tit:'Según la industria',sub:'Requisitos que se activan específicamente por sector. La ausencia de fichas sectoriales no implica ausencia de obligaciones, ya que otras pueden derivarse de la actividad, los datos tratados, los contratos o la jurisdicción.'},
   {n:2,tit:'Marcos transversales',sub:'Estándares y marcos que pueden ser relevantes en distintas industrias según el contexto, los contratos o las exigencias de terceros.'},
-  {n:3,tit:'Según dónde operás y qué hacés',sub:'Obligaciones que se activan por jurisdicción, mercado o actividad específica.'}
+  {n:3,tit:'Según jurisdicción y actividad',sub:'Obligaciones que se activan por jurisdicción, mercado o actividad específica.'}
 ];
 const VINC = {legal:'Legal',contractual:'Contractual',referencia:'Referencia',practica:'Buena práctica',contexto:'Marco legal'};
 const EVID = {certificacion:'Certificación',atestacion:'Atestación',evaluacion:'Evaluación',
@@ -716,20 +724,20 @@ function render(){
           <h3 class="sector-nom">${ind.nom}</h3>
           ${recursoHTML(ind.id)}
           ${ns.length ? `<ul class="fichas">${ns.map(f => fichaHTML(f, ind.id)).join('')}</ul>`
-                      : `<p class="sector-vacio">Sin fichas que se activen específicamente por industria en esta versión. Otras obligaciones pueden aparecer según tu actividad, datos, contratos o jurisdicción.</p>`}
+                      : `<p class="sector-vacio">Sin fichas que se activen específicamente por industria en esta versión. Otras obligaciones pueden derivarse de la actividad, los datos tratados, los contratos o la jurisdicción.</p>`}
         </div>`;
       });
     } else if(c.n === 0){
       const oblig = NORMAS.filter(n => n.capa === 0 && n.vincula !== 'contexto');
       const marco = NORMAS.filter(n => n.capa === 0 && n.vincula === 'contexto');
-      html += `<ul class="fichas">${oblig.map(fichaHTML).join('')}</ul>`;
+      html += `<ul class="fichas">${oblig.map(n => fichaHTML(n)).join('')}</ul>`;
       if(marco.length){
         html += `<p class="sub-tit">Marco legal de referencia</p>
-          <p class="sub-txt">No generan controles a implementar. Están acá porque definen el terreno.</p>
-          <ul class="fichas">${marco.map(fichaHTML).join('')}</ul>`;
+          <p class="sub-txt">No establecen controles a implementar; se incluyen como marco legal de referencia.</p>
+          <ul class="fichas">${marco.map(n => fichaHTML(n)).join('')}</ul>`;
       }
     } else {
-      html += `<ul class="fichas">${NORMAS.filter(n => n.capa === c.n).map(fichaHTML).join('')}</ul>`;
+      html += `<ul class="fichas">${NORMAS.filter(n => n.capa === c.n).map(n => fichaHTML(n)).join('')}</ul>`;
     }
     html += '</section>';
   });
@@ -848,7 +856,7 @@ function limpiar(){
 function copiar(){
   const res = resultados();
   const ind = INDUSTRIAS.find(i => i.id === ctx.industria);
-  let txt = `Mapa de aplicabilidad normativa — ${ind ? ind.nom : 'sin industria definida'}\n`;
+  let txt = `Mapa de aplicabilidad normativa de seguridad de la información — ${ind ? ind.nom : 'sin industria definida'}\n`;
   txt += `Generado el ${new Date().toLocaleDateString('es-AR')}\n\n`;
   ['legal','contractual','referencia','practica','contexto'].forEach(g => {
     const ns = res.aplican.filter(x => x.vincula === g);
